@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bienvenido a School Manager</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="logo">School Manager</div>
+        <div class="nav-links">
+            <a href="#">Login</a>
+        </div>
+    </header>
+
+    <!-- Hero / Intro -->
+    <section class="hero">
+        <h2>Bienvenido a School Manager</h2>
+        <p>
+            School Manager es una aplicación diseñada para facilitar la gestión escolar.
+            Permite manejar usuarios, asignaturas, notas y asistencias de manera sencilla.
+        </p>
+        <p>
+            Próximamente podrás iniciar sesión para acceder a funciones personalizadas.
+        </p>
+    </section>
+
+    <!-- Tablas de ejemplo -->
+    <section class="tables">
+        <div class="table-container">
+            <h3>Usuarios de ejemplo</h3>
+            <table>
+                <tr>
+                    <th>ID</th><th>Nombre</th><th>Apellido</th><th>Email</th><th>Rol</th>
+                </tr>
+                <tr th:each="u : ${usuarios}">
+                    <td th:text="${u.id}"></td>
+                    <td th:text="${u.nombre}"></td>
+                    <td th:text="${u.apellido}"></td>
+                    <td th:text="${u.email}"></td>
+                    <td th:text="${u.rol}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="table-container">
+            <h3>Asignaturas de ejemplo</h3>
+            <table>
+                <tr>
+                    <th>ID</th><th>Nombre</th><th>Profesor</th><th>Alumnos</th>
+                </tr>
+                <tr th:each="a : ${asignaturas}">
+                    <td th:text="${a.id}"></td>
+                    <td th:text="${a.nombre}"></td>
+                    <td th:text="${a.profesor.nombre + ' ' + a.profesor.apellido}"></td>
+                    <td>
+                        <span th:each="al, iterStat : ${a.alumnos}" 
+                              th:text="${al.nombre + ' ' + al.apellido + (!iterStat.last ? ', ' : '')}"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2025 School Manager
+    </footer>
+</body>
+</html>
