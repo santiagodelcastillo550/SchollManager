@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro - School Manager</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">School Manager</div>
+        <div class="nav-links">
+            <a th:href="@{/}">Inicio</a>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <h2>Registro de usuario</h2>
+
+        <form th:action="@{/register}" method="post">
+            <input type="text" name="nombre" placeholder="Nombre" required>
+            <input type="text" name="apellido" placeholder="Apellido" required>
+            <input type="email" name="email" placeholder="Correo electrónico" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+
+            <select name="rol" required>
+                <option value="">Selecciona un rol</option>
+                <option value="ALUMNO">Alumno</option>
+                <option value="PROFESOR">Profesor</option>
+            </select>
+
+            <button type="submit">Registrarse</button>
+        </form>
+
+        <p>¿Ya tienes una cuenta? <a th:href="@{/login}">Inicia sesión</a></p>
+    </div>
+
+    <footer>
+        &copy; 2025 School Manager
+    </footer>
+
+</body>
+</html>

@@ -99,3 +99,97 @@ footer {
     background-color: #4b0082;
     color: #fff;
 }
+
+/* Sección de características (features) */
+.features {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 2rem;
+    background-color: #ede0ff;
+}
+
+.feature-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card h3 {
+    color: #4b0082;
+    margin-bottom: 0.8rem;
+}
+
+.feature-card p {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+}
+
+
+/* ============ LOGIN & REGISTRO ============ */
+.auth-container {
+    background-color: white;
+    padding: 2rem 3rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    text-align: center;
+    width: 350px;
+    margin: 4rem auto;
+}
+
+.auth-container h2 {
+    color: #4b0082;
+    margin-bottom: 1.2rem;
+}
+
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-container input,
+.auth-container select {
+    padding: 0.7rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.auth-container button {
+    background-color: #4b0082;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.auth-container button:hover {
+    background-color: #7b2cbf;
+}
+
+.auth-container a {
+    color: #4b0082;
+    text-decoration: none;
+}
+
+.auth-container a:hover {
+    text-decoration: underline;
+}
+
+.auth-container .error {
+    color: red;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
