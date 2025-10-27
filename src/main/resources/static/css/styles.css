@@ -193,3 +193,21 @@ footer {
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
 }
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.auth-page main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-page footer {
+    margin-top: auto;
+    position: relative;
+}

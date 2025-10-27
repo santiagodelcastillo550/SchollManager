@@ -30,14 +30,19 @@ public class UsuarioController {
     public String procesarLogin(@ModelAttribute Usuario usuario, Model model) {
         Optional<Usuario> existente = usuarioRepository.findByEmail(usuario.getEmail());
 
-        if (existente.isPresent() && existente.get().getPassword().equals(usuario.getPassword())) {
-            model.addAttribute("usuario", existente.get());
-            model.addAttribute("mensaje", "Bienvenido " + existente.get().getNombre());
-            return "redirect:/"; // por ahora vuelve al inicio
-        } else {
-            model.addAttribute("error", "Email o contraseña incorrectos");
-            return "login";
+        if (existente.isPresent()) {
+            Usuario u = existente.get();
+
+            // Comparación directa (sin cifrar)
+            if (u.getPassword().equals(usuario.getPassword())) {
+                model.addAttribute("usuario", u);
+                model.addAttribute("mensaje", "Bienvenido " + u.getNombre());
+                return "redirect:/"; // vuelve al inicio
+            }
         }
+
+        model.addAttribute("error", "Correo o contraseña incorrectos");
+        return "login";
     }
 
     // Mostrar formulario de registro
@@ -51,11 +56,13 @@ public class UsuarioController {
     @PostMapping("/register")
     public String procesarRegistro(@ModelAttribute Usuario usuario, Model model) {
         Optional<Usuario> existente = usuarioRepository.findByEmail(usuario.getEmail());
+
         if (existente.isPresent()) {
             model.addAttribute("error", "Ya existe un usuario con ese correo electrónico");
             return "register";
         }
 
+        // Guarda el usuario directamente
         usuarioRepository.save(usuario);
         model.addAttribute("mensaje", "Registro exitoso. Ahora puedes iniciar sesión.");
         return "login";
