@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel del Alumno</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">School Manager</div>
+    <div class="nav-links">
+        <a th:href="@{/logout}">Cerrar sesión</a>
+    </div>
+</header>
+
+<div class="container">
+    <h2 th:text="'Bienvenido, ' + ${alumno.nombre} + ' ' + ${alumno.apellido}"></h2>
+
+    <div class="tables">
+        <div class="table-container">
+            <h3>Asignaturas y Profesores</h3>
+            <table>
+                <tr>
+                    <th>Asignatura</th>
+                    <th>Profesor</th>
+                </tr>
+                <tr th:each="asig : ${asignaturas}">
+                    <td th:text="${asig.nombre}"></td>
+                    <td th:text="${asig.profesor.nombre + ' ' + asig.profesor.apellido}"></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="table-container">
+            <h3>Notas</h3>
+            <table>
+                <tr>
+                    <th>Asignatura</th>
+                    <th>Nota</th>
+                </tr>
+                <tr th:each="nota : ${notas}">
+                    <td th:text="${nota.asignatura.nombre}"></td>
+                    <td th:text="${nota.valor}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

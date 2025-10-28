@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.SchoolManager.entities.Rol;
 import com.example.SchoolManager.entities.Usuario;
 import com.example.SchoolManager.repositories.UsuarioRepository;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class UsuarioController {
@@ -27,23 +30,33 @@ public class UsuarioController {
 
     // Procesar login
     @PostMapping("/login")
-    public String procesarLogin(@ModelAttribute Usuario usuario, Model model) {
+    public String procesarLogin(@ModelAttribute Usuario usuario, Model model, HttpSession session) {
         Optional<Usuario> existente = usuarioRepository.findByEmail(usuario.getEmail());
 
         if (existente.isPresent()) {
             Usuario u = existente.get();
 
-            // Comparación directa (sin cifrar)
+            // comparacion directa sin encoder (ajusta si usas encoder)
             if (u.getPassword().equals(usuario.getPassword())) {
-                model.addAttribute("usuario", u);
-                model.addAttribute("mensaje", "Bienvenido " + u.getNombre());
-                return "redirect:/"; // vuelve al inicio
+                // Guardamos usuario en sesión
+                session.setAttribute("usuarioLogueado", u);
+
+                // Redirige según enum Rol
+                if (u.getRol() == Rol.PROFESOR) {
+                    return "redirect:/profesor/dashboard";
+                } else if (u.getRol() == Rol.ALUMNO) {
+                    return "redirect:/alumno/dashboard";
+                } else {
+                    return "redirect:/";
+                }
             }
         }
 
         model.addAttribute("error", "Correo o contraseña incorrectos");
         return "login";
     }
+
+
 
     // Mostrar formulario de registro
     @GetMapping("/register")
@@ -66,5 +79,11 @@ public class UsuarioController {
         usuarioRepository.save(usuario);
         model.addAttribute("mensaje", "Registro exitoso. Ahora puedes iniciar sesión.");
         return "login";
+    }
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
     }
 }
