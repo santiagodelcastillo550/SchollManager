@@ -18,17 +18,33 @@
     <h2 th:text="'Bienvenido, ' + ${profesor.nombre} + ' ' + ${profesor.apellido}"></h2>
     <h3>Asignaturas que impartes:</h3>
 
-    <div class="tables">
-        <div class="table-container" th:each="asig : ${asignaturas}">
-            <h4 th:text="${asig.nombre}"></h4>
-            <p th:text="${asig.descripcion}"></p>
-            <p><strong>Alumnos:</strong></p>
-            <ul>
-                <li th:each="alumno : ${asig.alumnos}" th:text="${alumno.nombre + ' ' + alumno.apellido}"></li>
-            </ul>
-        </div>
+    <div th:each="asig : ${asignaturas}">
+        <h4 th:text="${asig.nombre}"></h4>
+        <!--  <p th:text="${asig.descripcion}"></p>-->
+
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Alumno</th>
+                    <th>Nota</th>
+                    <!-- <th>Acción</th> -->
+                </tr>
+            </thead>
+            <tbody>
+			    <tr th:each="alumno : ${asig.alumnos}">
+			        <td th:text="${alumno.nombre + ' ' + alumno.apellido}"></td>
+			        <td>
+			            <form th:action="@{/profesor/guardarNota}" method="post">
+			                <input type="hidden" name="alumnoId" th:value="${alumno.id}">
+			                <input type="hidden" name="asignaturaId" th:value="${asig.id}">
+			                <input type="number" name="valor" step="0.1" min="0" max="10" placeholder="—">
+			                <button type="submit">Guardar</button>
+			            </form>
+			        </td>
+			    </tr>
+			</tbody>
+        </table>
     </div>
 </div>
-
 </body>
 </html>

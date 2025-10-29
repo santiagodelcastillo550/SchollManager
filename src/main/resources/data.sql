@@ -19,11 +19,11 @@ VALUES ('Luis', 'Martínez', 'luis.martinez@school.com', '1234', 'ALUMNO');
 -- ==========================
 INSERT INTO asignatura (nombre, descripcion, profesor_id)
 VALUES ('Matemáticas', 'Álgebra y geometría',
-        (SELECT id FROM usuario WHERE email = 'juan.perez@school.com'));
+        (SELECT id FROM usuario WHERE email = 'juan.perez@school.com' LIMIT 1));
 
 INSERT INTO asignatura (nombre, descripcion, profesor_id)
 VALUES ('Historia', 'Historia mundial',
-        (SELECT id FROM usuario WHERE email = 'juan.perez@school.com'));
+        (SELECT id FROM usuario WHERE email = 'juan.perez@school.com' LIMIT 1));
 
 
 -- ==========================
@@ -31,20 +31,20 @@ VALUES ('Historia', 'Historia mundial',
 -- ==========================
 INSERT INTO asignaturas_alumnos (asignatura_id, alumno_id)
 VALUES (
-    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas'),
-    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com')
+    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas' LIMIT 1),
+    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com' LIMIT 1)
 );
 
 INSERT INTO asignaturas_alumnos (asignatura_id, alumno_id)
 VALUES (
-    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas'),
-    (SELECT id FROM usuario WHERE email = 'luis.martinez@school.com')
+    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas' LIMIT 1),
+    (SELECT id FROM usuario WHERE email = 'luis.martinez@school.com' LIMIT 1)
 );
 
 INSERT INTO asignaturas_alumnos (asignatura_id, alumno_id)
 VALUES (
-    (SELECT id FROM asignatura WHERE nombre = 'Historia'),
-    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com')
+    (SELECT id FROM asignatura WHERE nombre = 'Historia' LIMIT 1),
+    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com' LIMIT 1)
 );
 
 
@@ -54,22 +54,22 @@ VALUES (
 INSERT INTO nota (valor, fecha, alumno_id, asignatura_id)
 VALUES (
     8.5, '2025-10-22',
-    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com'),
-    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas')
+    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com' LIMIT 1),
+    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas' LIMIT 1)
 );
 
 INSERT INTO nota (valor, fecha, alumno_id, asignatura_id)
 VALUES (
     9.0, '2025-10-22',
-    (SELECT id FROM usuario WHERE email = 'luis.martinez@school.com'),
-    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas')
+    (SELECT id FROM usuario WHERE email = 'luis.martinez@school.com' LIMIT 1),
+    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas' LIMIT 1)
 );
 
 INSERT INTO nota (valor, fecha, alumno_id, asignatura_id)
 VALUES (
     7.5, '2025-10-22',
-    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com'),
-    (SELECT id FROM asignatura WHERE nombre = 'Historia')
+    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com' LIMIT 1),
+    (SELECT id FROM asignatura WHERE nombre = 'Historia' LIMIT 1)
 );
 
 
@@ -79,20 +79,20 @@ VALUES (
 INSERT INTO asistencia (fecha, presente, alumno_id, asignatura_id)
 VALUES (
     '2025-10-22', TRUE,
-    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com'),
-    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas')
+    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com' LIMIT 1),
+    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas' LIMIT 1)
 );
 
 INSERT INTO asistencia (fecha, presente, alumno_id, asignatura_id)
 VALUES (
     '2025-10-22', TRUE,
-    (SELECT id FROM usuario WHERE email = 'luis.martinez@school.com'),
-    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas')
+    (SELECT id FROM usuario WHERE email = 'luis.martinez@school.com' LIMIT 1),
+    (SELECT id FROM asignatura WHERE nombre = 'Matemáticas' LIMIT 1)
 );
 
 INSERT INTO asistencia (fecha, presente, alumno_id, asignatura_id)
 VALUES (
     '2025-10-22', FALSE,
-    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com'),
-    (SELECT id FROM asignatura WHERE nombre = 'Historia')
+    (SELECT id FROM usuario WHERE email = 'ana.gomez@school.com' LIMIT 1),
+    (SELECT id FROM asignatura WHERE nombre = 'Historia' LIMIT 1)
 );
