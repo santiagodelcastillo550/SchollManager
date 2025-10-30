@@ -27,18 +27,18 @@
                 <tr>
                     <th>Alumno</th>
                     <th>Nota</th>
-                    <!-- <th>Acción</th> -->
                 </tr>
             </thead>
             <tbody>
 			    <tr th:each="alumno : ${asig.alumnos}">
 			        <td th:text="${alumno.nombre + ' ' + alumno.apellido}"></td>
 			        <td>
-			            <form th:action="@{/profesor/guardarNota}" method="post">
+			            <form th:action="@{/profesor/actualizarNota}" method="post" class="nota-form">
 			                <input type="hidden" name="alumnoId" th:value="${alumno.id}">
 			                <input type="hidden" name="asignaturaId" th:value="${asig.id}">
-			                <input type="number" name="valor" step="0.1" min="0" max="10" placeholder="—">
-			                <button type="submit">Guardar</button>
+			                <input type="number" name="valor" step="0.1" min="0" max="10" placeholder="—"
+			                		class="nota-input" oninput="habilitarBoton(this)">
+			                <button type="submit" class="btn-guardar" disabled>Guardar</button>
 			            </form>
 			        </td>
 			    </tr>
@@ -46,5 +46,11 @@
         </table>
     </div>
 </div>
+<footer>
+        &copy; 2025 School Manager
+</footer>
 </body>
+
+<!-- Enlazamos el archivo JavaScript externo -->
+<script th:src="@{/js/profesor_dashboard.js}"></script>
 </html>
