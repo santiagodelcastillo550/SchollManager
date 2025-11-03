@@ -26,12 +26,14 @@
             <thead>
                 <tr>
                     <th>Alumno</th>
-                    <th>Nota</th>
+                    <th>Nota Actual</th>
+                    <th>Cambio de Nota</th>
                 </tr>
             </thead>
             <tbody>
 			    <tr th:each="alumno : ${asig.alumnos}">
 			        <td th:text="${alumno.nombre + ' ' + alumno.apellido}"></td>
+			        <td></td>
 			        <td>
 			            <form th:action="@{/profesor/actualizarNota}" method="post" class="nota-form">
 			                <input type="hidden" name="alumnoId" th:value="${alumno.id}">
