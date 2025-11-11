@@ -36,4 +36,12 @@ public class NotaService {
         nota.setFecha(LocalDate.now());
         notaRepository.save(nota);
     }
+    
+    public Optional<Double> obtenerNota(Long alumnoId, Long asignaturaId) {
+        return notaRepository.findByAlumnoIdAndAsignaturaId(alumnoId, asignaturaId)
+                             .map(Nota::getValor);
+    }
+
+
+
 }

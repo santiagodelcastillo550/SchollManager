@@ -1,6 +1,8 @@
 package com.example.SchoolManager.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,19 @@ public class ProfesorController {
     @Autowired
     private NotaService notaService;
 
+	/*
+	 * @GetMapping("/profesor/dashboard") public String
+	 * dashboardProfesor(HttpSession session, Model model) { Usuario usuario =
+	 * (Usuario) session.getAttribute("usuarioLogueado");
+	 * 
+	 * if (usuario == null || usuario.getRol() == null ||
+	 * !usuario.getRol().name().equals("PROFESOR")) { return "redirect:/login"; }
+	 * 
+	 * List<Asignatura> asignaturas = asignaturaRepository.findByProfesor(usuario);
+	 * model.addAttribute("asignaturas", asignaturas);
+	 * model.addAttribute("profesor", usuario); return "profesor_dashboard"; }
+	 */
+    
     @GetMapping("/profesor/dashboard")
     public String dashboardProfesor(HttpSession session, Model model) {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
@@ -39,10 +54,23 @@ public class ProfesorController {
         }
 
         List<Asignatura> asignaturas = asignaturaRepository.findByProfesor(usuario);
+
+        // Añadimos mapa de notas: clave = "alumnoId-asignaturaId"
+        Map<String, Double> notasMap = new HashMap<>();
+        for (Asignatura asig : asignaturas) {
+            for (Usuario alumno : asig.getAlumnos()) {
+                notaService.obtenerNota(alumno.getId(), asig.getId())
+                        .ifPresent(valor -> notasMap.put(alumno.getId() + "-" + asig.getId(), valor));
+            }
+        }
+
         model.addAttribute("asignaturas", asignaturas);
         model.addAttribute("profesor", usuario);
+        model.addAttribute("notasMap", notasMap);
         return "profesor_dashboard";
     }
+
+
     
     @PostMapping("/profesor/actualizarNota")
     public String actualizarNota(@RequestParam Long asignaturaId,

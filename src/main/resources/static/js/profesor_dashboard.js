@@ -78,3 +78,27 @@ function resaltarInput(input, exito = true) {
         input.style.border = "";
     }, 1500);
 }
+
+document.querySelectorAll('.nota-form').forEach(form => {
+    form.addEventListener('submit', function (event) {
+        event.preventDefault(); // Evita el envío tradicional
+        const formData = new FormData(this);
+
+        fetch(this.action, {
+            method: this.method,
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // Refresca la página tras guardar correctamente
+                location.reload();
+            } else {
+                alert("Error al actualizar la nota");
+            }
+        })
+        .catch(err => {
+            console.error("Error:", err);
+            alert("Error al conectar con el servidor");
+        });
+    });
+});

@@ -33,7 +33,8 @@
             <tbody>
 			    <tr th:each="alumno : ${asig.alumnos}">
 			        <td th:text="${alumno.nombre + ' ' + alumno.apellido}"></td>
-			        <td></td>
+			        <!-- Mostrar nota actual -->
+                    <td th:text="${notasMap[alumno.id + '-' + asig.id]} ?: '—'"></td>
 			        <td>
 			            <form th:action="@{/profesor/actualizarNota}" method="post" class="nota-form">
 			                <input type="hidden" name="alumnoId" th:value="${alumno.id}">
