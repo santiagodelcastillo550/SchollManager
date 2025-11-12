@@ -1,6 +1,8 @@
 package com.example.SchoolManager.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,23 +26,64 @@ public class AlumnoController {
     @Autowired
     private NotaRepository notaRepository;
 
+	/*
+	 * @GetMapping("/alumno/dashboard") public String dashboardAlumno(HttpSession
+	 * session, Model model) { Usuario usuario = (Usuario)
+	 * session.getAttribute("usuarioLogueado");
+	 * 
+	 * if (usuario == null || usuario.getRol() == null ||
+	 * !usuario.getRol().name().equals("ALUMNO")) { return "redirect:/login"; }
+	 * 
+	 * Usuario alumno = usuarioRepository.findById(usuario.getId()).orElse(null); if
+	 * (alumno == null) return "redirect:/login";
+	 * 
+	 * List<Asignatura> asignaturas = alumno.getAsignaturasCursadas(); List<Nota>
+	 * notas = notaRepository.findByAlumno(alumno);
+	 * 
+	 * model.addAttribute("alumno", alumno); model.addAttribute("asignaturas",
+	 * asignaturas); model.addAttribute("notas", notas); return "alumno_dashboard";
+	 * }
+	 */
+    
     @GetMapping("/alumno/dashboard")
     public String dashboardAlumno(HttpSession session, Model model) {
         Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
+        // Verifica que el usuario esté logueado y sea alumno
         if (usuario == null || usuario.getRol() == null || !usuario.getRol().name().equals("ALUMNO")) {
             return "redirect:/login";
         }
 
+        // Carga el alumno desde la BD
         Usuario alumno = usuarioRepository.findById(usuario.getId()).orElse(null);
         if (alumno == null) return "redirect:/login";
 
+        // Obtiene asignaturas cursadas y notas
         List<Asignatura> asignaturas = alumno.getAsignaturasCursadas();
         List<Nota> notas = notaRepository.findByAlumno(alumno);
 
+        // Mapa de asignaturaId → valor de nota
+        Map<Long, Double> notasMap = new HashMap<>();
+        for (Nota nota : notas) {
+            notasMap.put(nota.getAsignatura().getId(), nota.getValor());
+        }
+
+        // Cálculo de promedio y aprobadas
+        double promedio = 0;
+        long aprobadas = 0;
+        if (!notas.isEmpty()) {
+            promedio = notas.stream().mapToDouble(Nota::getValor).average().orElse(0);
+            aprobadas = notas.stream().filter(n -> n.getValor() >= 5).count();
+        }
+
+        // Pasamos los datos al modelo
         model.addAttribute("alumno", alumno);
         model.addAttribute("asignaturas", asignaturas);
-        model.addAttribute("notas", notas);
+        model.addAttribute("notasMap", notasMap);
+        model.addAttribute("promedio", String.format("%.2f", promedio));
+        model.addAttribute("aprobadas", aprobadas);
+        model.addAttribute("totalAsignaturas", asignaturas.size());
+
         return "alumno_dashboard";
     }
 }

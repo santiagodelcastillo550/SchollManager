@@ -31,19 +31,6 @@ public class ProfesorController {
 
     @Autowired
     private NotaService notaService;
-
-	/*
-	 * @GetMapping("/profesor/dashboard") public String
-	 * dashboardProfesor(HttpSession session, Model model) { Usuario usuario =
-	 * (Usuario) session.getAttribute("usuarioLogueado");
-	 * 
-	 * if (usuario == null || usuario.getRol() == null ||
-	 * !usuario.getRol().name().equals("PROFESOR")) { return "redirect:/login"; }
-	 * 
-	 * List<Asignatura> asignaturas = asignaturaRepository.findByProfesor(usuario);
-	 * model.addAttribute("asignaturas", asignaturas);
-	 * model.addAttribute("profesor", usuario); return "profesor_dashboard"; }
-	 */
     
     @GetMapping("/profesor/dashboard")
     public String dashboardProfesor(HttpSession session, Model model) {

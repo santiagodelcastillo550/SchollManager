@@ -98,6 +98,7 @@ footer {
     padding: 1rem;
     background-color: #4b0082;
     color: #fff;
+    margin-top: auto;
 }
 
 /* Sección de características (features) */
@@ -278,5 +279,23 @@ footer {
 .btn-guardar:disabled {
     background-color: #ccc;
     cursor: not-allowed;
+}
+
+/* ==============================
+   Layout específico del panel del profesor
+   ============================== */
+
+.profesor-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.profesor-page .container {
+    flex: 1; /* ocupa todo el espacio disponible */
+}
+
+.profesor-page footer {
+    margin-top: auto; /* empuja el footer al fondo */
 }
 
