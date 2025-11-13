@@ -299,3 +299,23 @@ footer {
     margin-top: auto; /* empuja el footer al fondo */
 }
 
+/* ==============================
+   Layout específico del panel del alumno
+   ============================== */
+
+.alumno-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.alumno-page .container {
+    flex: 1; /* ocupa todo el espacio disponible */
+}
+
+.alumno-page footer {
+    margin-top: auto; /* empuja el footer al fondo */
+}
+
+
+
