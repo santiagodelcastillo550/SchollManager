@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.example.SchoolManager.entities.Asignatura;
 import com.example.SchoolManager.entities.Nota;
@@ -16,5 +17,9 @@ public interface NotaRepository extends JpaRepository<Nota, Long>{
 	Optional<Nota> findByAlumnoIdAndAsignaturaId(Long alumnoId, Long asignaturaId);
 	
 	Optional<Nota> findByAlumnoAndAsignatura(Usuario alumno, Asignatura asignatura);
+	
+	@Query("SELECT AVG(n.valor) FROM Nota n")
+	Double promedioGlobal();
+
 	
 }

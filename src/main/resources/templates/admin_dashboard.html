@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">SchoolManager</div>
+    <div class="nav-links">
+        <a th:href="@{/logout}">Cerrar sesión</a>
+    </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <h2>Panel de Administración</h2>
+    <p>Resumen general del sistema</p>
+</section>
+
+<!-- ========== PANEL DE ACCIONES ========== -->
+<div class="admin-actions">
+    <h3>Gestión del Sistema</h3>
+
+    <div class="actions-grid">
+        <a class="admin-btn" th:href="@{/admin/crear-profesor}">Añadir Profesor</a>
+        <a class="admin-btn" th:href="@{/admin/crear-alumno}">Añadir Alumno</a>
+        <a class="admin-btn" th:href="@{/admin/crear-asignatura}">Añadir Asignatura</a>
+        <a class="admin-btn" th:href="@{/admin/asignar-asignatura-profesor}">Asignar Asignatura a Profesor</a>
+        <a class="admin-btn" th:href="@{/admin/asignar-asignatura-alumno}">Asignar Asignatura a Alumno</a>
+    </div>
+</div>
+
+
+<div class="tables">
+
+    <!-- TARJETAS DE MÉTRICAS -->
+    <div class="metrics-container">
+
+        <div class="metric-card">
+            <div class="metric-icon">👨‍🏫</div>
+            <div class="metric-title">Profesores</div>
+            <div class="metric-value" th:text="${totalProfesores}">0</div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon">👨‍🎓</div>
+            <div class="metric-title">Alumnos</div>
+            <div class="metric-value" th:text="${totalAlumnos}">0</div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon">📘</div>
+            <div class="metric-title">Asignaturas</div>
+            <div class="metric-value" th:text="${totalAsignaturas}">0</div>
+        </div>
+
+        <div class="metric-card">
+            <div class="metric-icon">⭐</div>
+            <div class="metric-title">Promedio Global</div>
+            <div class="metric-value" th:text="${promedioGlobal}">0</div>
+        </div>
+    </div>
+
+
+    <!-- TABLA DE USUARIOS -->
+    <div class="table-container">
+        <h3>Usuarios Registrados</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Nombre</th>
+                <th>Rol</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="u : ${usuarios}">
+                <td th:text="${u.id}"></td>
+                <td th:text="${u.email}"></td>
+                <td th:text="${u.nombre}"></td>
+                <td th:text="${u.rol}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- TABLA ASIGNATURAS -->
+    <div class="table-container">
+        <h3>Asignaturas</h3>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="a : ${asignaturas}">
+                <td th:text="${a.id}"></td>
+                <td th:text="${a.nombre}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<footer>
+    <p>SchoolManager © 2025</p>
+</footer>
+
+</body>
+</html>

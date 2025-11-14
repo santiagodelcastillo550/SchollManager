@@ -46,7 +46,9 @@ public class UsuarioController {
                     return "redirect:/profesor/dashboard";
                 } else if (u.getRol() == Rol.ALUMNO) {
                     return "redirect:/alumno/dashboard";
-                } else {
+                } else if (u.getRol() == Rol.ADMIN) {
+                    return "redirect:/admin/dashboard";
+                }else {
                     return "redirect:/";
                 }
             }
