@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir Profesor</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body class="auth-page">
+
+<header class="navbar">
+    <div class="logo">SchoolManager</div>
+    <a class="nav-links" th:href="@{/logout}">Cerrar sesión</a>
+</header>
+
+<main>
+    <div class="auth-container">
+        <h2>Añadir Profesor</h2>
+
+        <form th:action="@{/admin/guardar-profesor}" th:object="${usuario}" method="post">
+
+            <input type="text" th:field="*{nombre}" placeholder="Nombre" required>
+            <input type="text" th:field="*{apellido}" placeholder="Apellido" required>
+            <input type="email" th:field="*{email}" placeholder="Email" required>
+            <input type="password" th:field="*{password}" placeholder="Contraseña" required>
+
+            <button type="submit">Guardar</button>
+        </form>
+
+        <br>
+        <a th:href="@{/admin/dashboard}">← Volver al panel</a>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 SchoolManager</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir Alumno</title>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Añadir Alumno</h2>
+
+    <form th:action="@{/admin/crear-alumno}" th:object="${usuario}" method="post">
+
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required>
+
+        <label>Email:</label>
+        <input type="email" th:field="*{email}" required>
+
+        <label>Contraseña:</label>
+        <input type="password" th:field="*{password}" required>
+
+        <button type="submit" class="submit-btn">Guardar Alumno</button>
+
+        <a th:href="@{/admin/dashboard}" class="back-link">← Volver al Panel</a>
+    </form>
+</div>
+
+</body>
+</html>
+ -->
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir Alumno</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body class="auth-page">
+
+<header class="navbar">
+    <div class="logo">SchoolManager</div>
+    <a class="nav-links" th:href="@{/logout}">Cerrar sesión</a>
+</header>
+
+<main>
+    <div class="auth-container">
+        <h2>Añadir Alumno</h2>
+
+        <form th:action="@{/admin/crear-alumno}" th:object="${usuario}" method="post">
+
+            <input type="text" th:field="*{nombre}" placeholder="Nombre" required>
+            <input type="text" th:field="*{apellido}" placeholder="Apellido" required>
+            <input type="email" th:field="*{email}" placeholder="Email" required>
+            <input type="password" th:field="*{password}" placeholder="Contraseña" required>
+
+            <button type="submit" class="submit-btn">Guardar Alumno</button>
+        </form>
+
+        <br>
+        <a th:href="@{/admin/dashboard}">← Volver al panel</a>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 SchoolManager</p>
+</footer>
+
+</body>
+</html>
+ 
