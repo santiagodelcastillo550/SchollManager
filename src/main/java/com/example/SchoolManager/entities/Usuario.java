@@ -1,6 +1,8 @@
 package com.example.SchoolManager.entities; 
 
-import java.util.List; 
+import java.util.List;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity; 
 import jakarta.persistence.EnumType; 
 import jakarta.persistence.Enumerated; 
@@ -19,6 +21,8 @@ public class Usuario {
 	
 	private String nombre; 
 	private String apellido; 
+	
+	@Column(unique = true, nullable = false)
 	private String email; 
 	private String password; 
 	

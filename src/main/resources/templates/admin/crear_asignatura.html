@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Asignatura</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body class="auth-page">
+
+<header class="navbar">
+    <div class="logo">SchoolManager</div>
+    <a class="nav-links" th:href="@{/logout}">Cerrar sesión</a>
+</header>
+
+<main>
+    <div class="auth-container">
+
+        <h2>Crear Asignatura</h2>
+
+        <form th:action="@{/admin/guardar-asignatura}" th:object="${asignatura}" method="post">
+
+            <input type="text" th:field="*{nombre}" placeholder="Nombre de la asignatura" required>
+
+            <textarea th:field="*{descripcion}" placeholder="Descripción" rows="3"></textarea>
+
+            <button type="submit">Guardar</button>
+        </form>
+
+        <br>
+        <a th:href="@{/admin/dashboard}">← Volver al panel</a>
+
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 SchoolManager</p>
+</footer>
+
+</body>
+</html>

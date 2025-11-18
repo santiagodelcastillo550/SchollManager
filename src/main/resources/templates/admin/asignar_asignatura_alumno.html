@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Asignar Asignatura a Alumno</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+
+<body class="auth-page">
+
+<header class="navbar">
+    <div class="logo">SchoolManager</div>
+    <a class="nav-links" th:href="@{/logout}">Cerrar sesión</a>
+</header>
+
+<main>
+    <div class="auth-container">
+        <h2>Asignar Asignatura a Alumno</h2>
+
+        <form th:action="@{/admin/asignar-asignatura-alumno}" method="post">
+
+            <label>Alumno:</label>
+            <select name="alumnoId" required>
+                <option value="">-- Seleccionar alumno --</option>
+                <option th:each="al : ${alumnos}"
+                        th:value="${al.id}"
+                        th:text="${al.nombre + ' ' + al.apellido}">
+                </option>
+            </select>
+
+            <label>Asignatura:</label>
+            <select name="asignaturaId" required>
+                <option value="">-- Seleccionar asignatura --</option>
+                <option th:each="asig : ${asignaturas}"
+                        th:value="${asig.id}"
+                        th:text="${asig.nombre}">
+                </option>
+            </select>
+
+            <button type="submit">Asignar</button>
+        </form>
+
+        <br>
+        <a th:href="@{/admin/dashboard}">← Volver al panel</a>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 SchoolManager</p>
+</footer>
+
+</body>
+</html>
