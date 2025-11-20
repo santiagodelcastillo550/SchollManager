@@ -16,6 +16,9 @@
 
     <div class="auth-container">
         <h2>Registro de usuario</h2>
+        
+        <!-- MENSAJE DE ERROR -->
+    	<p th:if="${error}" class="toast toast-error" th:text="${error}"></p>
 
         <form th:action="@{/register}" method="post">
             <input type="text" name="nombre" placeholder="Nombre" required>

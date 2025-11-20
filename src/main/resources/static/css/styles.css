@@ -42,6 +42,36 @@ body {
     color: #4b0082;
 }
 
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    animation: fadeInOut 4s ease forwards;
+    z-index: 9999;
+}
+
+.toast-error {
+    background-color: #ff4b4b;
+}
+
+.toast-success {
+    background-color: #4caf50;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: translateY(20px); }
+}
+
+
 /* Hero / Intro */
 .hero {
     text-align: center;

@@ -21,7 +21,7 @@
             <input type="email" name="email" placeholder="Correo electrónico" required>
             <input type="password" name="password" placeholder="Contraseña" required>
 
-            <div th:if="${error}" class="error" th:text="${error}"></div>
+            <p th:if="${error}" class="toast toast-error" th:text="${error}"></p>
 
             <button type="submit">Entrar</button>
         </form>

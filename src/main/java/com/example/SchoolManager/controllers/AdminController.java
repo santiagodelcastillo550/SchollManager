@@ -59,6 +59,12 @@ public class AdminController {
     public String guardarProfesor(@ModelAttribute Usuario usuario,
                                   RedirectAttributes redirectAttributes) {
 
+    	// VALIDACIÓN → email ya existe
+        if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "El email ya está registrado.");
+            return "redirect:/admin/crear-profesor";
+        }
+    	
         usuario.setRol(Rol.PROFESOR); // IMPORTANTE
         usuarioRepository.save(usuario);
 
@@ -73,8 +79,15 @@ public class AdminController {
     }
 
     @PostMapping("/admin/guardar-alumno")
-    public String crearAlumno(@ModelAttribute("usuario") Usuario usuario) {
+    public String crearAlumno(@ModelAttribute("usuario") Usuario usuario, 
+    							RedirectAttributes redirectAttributes) {
 
+    	// VALIDACIÓN → email ya existe
+        if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "El email ya está registrado.");
+            return "redirect:/admin/crear-alumno";
+        }
+    	
         usuario.setRol(Rol.ALUMNO);
         usuarioRepository.save(usuario);
 
@@ -90,8 +103,15 @@ public class AdminController {
     }
 
     @PostMapping("/admin/guardar-asignatura")
-    public String guardarAsignatura(@ModelAttribute("asignatura") Asignatura asignatura) {
+    public String guardarAsignatura(@ModelAttribute("asignatura") Asignatura asignatura,
+    								RedirectAttributes redirectAttributes) {
 
+    	// VALIDACIÓN → asignatura con el mismo nombre
+        if (asignaturaRepository.findByNombre(asignatura.getNombre()).isPresent()) {
+            redirectAttributes.addFlashAttribute("error", "Ya existe una asignatura con ese nombre.");
+            return "redirect:/admin/crear-asignatura";
+        }
+    	
         asignaturaRepository.save(asignatura);
         return "redirect:/admin/dashboard";
     }
