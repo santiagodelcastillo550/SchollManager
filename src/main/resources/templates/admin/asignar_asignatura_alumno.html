@@ -16,6 +16,9 @@
 <main>
     <div class="auth-container">
         <h2>Asignar Asignatura a Alumno</h2>
+        
+        <!-- MENSAJE DE ERROR -->
+		<p th:if="${error}" class="toast toast-error" th:text="${error}"></p>
 
         <form th:action="@{/admin/asignar-asignatura-alumno}" method="post">
 

@@ -128,18 +128,30 @@ public class AdminController {
     @PostMapping("/admin/asignar-asignatura-profesor")
     public String asignarAsignaturaProfesor(
             @RequestParam Long profesorId,
-            @RequestParam Long asignaturaId) {
+            @RequestParam Long asignaturaId,
+            RedirectAttributes redirectAttributes) {
 
         Usuario profesor = usuarioRepository.findById(profesorId).orElse(null);
         Asignatura asignatura = asignaturaRepository.findById(asignaturaId).orElse(null);
 
-        if (profesor != null && asignatura != null) {
-            asignatura.setProfesor(profesor);
-            asignaturaRepository.save(asignatura);
+        if (profesor == null || asignatura == null) {
+            redirectAttributes.addFlashAttribute("error", "Profesor o asignatura inválidos.");
+            return "redirect:/admin/asignar-asignatura-profesor";
         }
 
-        return "redirect:/admin/dashboard";
+        if (asignatura.getProfesor() != null) {
+            redirectAttributes.addFlashAttribute("error",
+                    "Esta asignatura ya tiene un profesor asignado.");
+            return "redirect:/admin/asignar-asignatura-profesor";
+        }
+
+        asignatura.setProfesor(profesor);
+        asignaturaRepository.save(asignatura);
+
+        redirectAttributes.addFlashAttribute("mensaje", "Profesor asignado correctamente.");
+        return "redirect:/admin/asignar-asignatura-profesor";
     }
+
 
 
     @GetMapping("/admin/asignar-asignatura-alumno")
@@ -154,20 +166,28 @@ public class AdminController {
     @PostMapping("/admin/asignar-asignatura-alumno")
     public String asignarAsignaturaAlumno(
             @RequestParam Long alumnoId,
-            @RequestParam Long asignaturaId) {
+            @RequestParam Long asignaturaId,
+            RedirectAttributes redirectAttributes) {
 
         Usuario alumno = usuarioRepository.findById(alumnoId).orElse(null);
         Asignatura asignatura = asignaturaRepository.findById(asignaturaId).orElse(null);
 
-        if (alumno != null && asignatura != null) {
-
-            // Añadir alumno solo si no está ya
-            if (!asignatura.getAlumnos().contains(alumno)) {
-                asignatura.getAlumnos().add(alumno);
-                asignaturaRepository.save(asignatura);
-            }
+        if (alumno == null || asignatura == null) {
+            redirectAttributes.addFlashAttribute("error", "Alumno o asignatura inválidos.");
+            return "redirect:/admin/asignar-asignatura-alumno";
         }
 
-        return "redirect:/admin/dashboard";
+        if (asignatura.getAlumnos().contains(alumno)) {
+            redirectAttributes.addFlashAttribute("error",
+                    "El alumno ya está inscrito en esta asignatura.");
+            return "redirect:/admin/asignar-asignatura-alumno";
+        }
+
+        asignatura.getAlumnos().add(alumno);
+        asignaturaRepository.save(asignatura);
+
+        redirectAttributes.addFlashAttribute("mensaje", "Alumno añadido correctamente.");
+        return "redirect:/admin/asignar-asignatura-alumno";
     }
+
 }

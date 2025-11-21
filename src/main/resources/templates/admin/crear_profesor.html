@@ -17,6 +17,9 @@
     <div class="auth-container">
         <h2>Añadir Profesor</h2>
 
+		<!-- MENSAJE DE ERROR -->
+		<p th:if="${error}" class="toast toast-error" th:text="${error}"></p>
+		
         <form th:action="@{/admin/guardar-profesor}" th:object="${usuario}" method="post">
 
             <input type="text" th:field="*{nombre}" placeholder="Nombre" required>

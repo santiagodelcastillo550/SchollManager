@@ -17,6 +17,9 @@
     <div class="auth-container">
 
         <h2>Crear Asignatura</h2>
+        
+        <!-- MENSAJE DE ERROR -->
+		<p th:if="${error}" class="toast toast-error" th:text="${error}"></p>
 
         <form th:action="@{/admin/guardar-asignatura}" th:object="${asignatura}" method="post">
 
