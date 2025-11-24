@@ -70,13 +70,19 @@
     <!-- TABLA DE USUARIOS -->
     <div class="table-container">
         <h3>Usuarios Registrados</h3>
-        <table>
+        
+        <!-- 🔍 Buscador -->
+        <input type="text" id="buscarUsuarios" class="form-control mb-3"
+               placeholder="Buscar usuario..." onkeyup="filtrarUsuarios()">
+               
+        <table id="tablaUsuarios">
             <thead>
             <tr>
                 <th>ID</th>
                 <th>Email</th>
                 <th>Nombre</th>
                 <th>Rol</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -85,6 +91,20 @@
                 <td th:text="${u.email}"></td>
                 <td th:text="${u.nombre}"></td>
                 <td th:text="${u.rol}"></td>
+                
+                <!-- 🔥 BOTONES DE ACCIÓN -->
+	            <td>
+	                <a th:href="@{'/admin/editar-usuario/' + ${u.id}}"
+	                   class="btn-small edit-btn">
+	                    ✏ Editar
+	                </a>
+	
+	                <a th:href="@{'/admin/eliminar-usuario/' + ${u.id}}"
+	                   onclick="abrirModalEliminar([[${u.id}]])"
+	                   class="btn-small delete-btn">
+	                    🗑 Eliminar
+	                </a>
+	            </td>
             </tr>
             </tbody>
         </table>
@@ -93,7 +113,12 @@
     <!-- TABLA ASIGNATURAS -->
     <div class="table-container">
         <h3>Asignaturas</h3>
-        <table>
+        
+        <!-- 🔍 Buscador -->
+        <input type="text" id="buscarAsignaturas" class="form-control mb-3"
+               placeholder="Buscar asignatura..." onkeyup="filtrarAsignaturas()">
+               
+        <table id="tablaAsignaturas">
             <thead>
             <tr>
                 <th>ID</th>
@@ -114,6 +139,23 @@
 <footer>
     <p>SchoolManager © 2025</p>
 </footer>
+
+<script th:src="@{/js/admin_dashboard.js}"></script>
+
+
+<!-- MODAL ELIMINAR -->
+<div id="modalEliminar" class="modal">
+    <div class="modal-content">
+        <h3>¿Eliminar usuario?</h3>
+        <p>Esta acción no se puede deshacer.</p>
+
+        <div class="modal-actions">
+            <button id="cancelarEliminar" class="btn-cancel">Cancelar</button>
+            <a id="confirmarEliminar" class="btn-delete">Eliminar</a>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>
