@@ -12,17 +12,57 @@ function filtrarUsuarios() {
     }
 }
 
-let modal = document.getElementById("modalEliminar");
-let confirmarEliminar = document.getElementById("confirmarEliminar");
-let cancelarEliminar = document.getElementById("cancelarEliminar");
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("modalEliminar");
+    const cancelar = document.getElementById("cancelarEliminar");
+    const formEliminar = document.getElementById("formEliminar");
+    const toastContainer = document.getElementById("toastContainer");
 
-// Abrir modal con ID dinámico
-function abrirModalEliminar(id) {
-    confirmarEliminar.href = "/admin/eliminar-usuario/" + id;
-    modal.style.display = "block";
+    if (!modal || !cancelar || !formEliminar || !toastContainer) {
+        console.error("No se encontraron los elementos clave");
+        return;
+    }
+
+    // Seleccionamos todos los botones de eliminar
+    const botonesEliminar = document.querySelectorAll(".delete-btn");
+
+    botonesEliminar.forEach(btn => {
+        btn.addEventListener("click", (event) => {
+            event.preventDefault();
+            const id = btn.dataset.id;
+            formEliminar.action = "/admin/eliminar-usuario/" + id;
+            modal.classList.add("show");
+            console.log("Modal abierta para id:", id);
+        });
+    });
+
+    // Cerrar modal
+    cancelar.addEventListener("click", () => modal.classList.remove("show"));
+    window.addEventListener("click", (e) => { if (e.target === modal) modal.classList.remove("show"); });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape") modal.classList.remove("show"); });
+
+    // Mostrar toast de éxito si hay mensaje de Thymeleaf
+    const mensaje = /*[[${mensaje}]]*/ ''; // Thymeleaf reemplaza si hay flash attribute
+    if (mensaje) {
+        const toast = document.createElement("div");
+        toast.classList.add("toast", "toast-success");
+        toast.textContent = mensaje;
+        toastContainer.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+});
+
+
+
+
+function mostrarToast(mensaje, tipo) {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${tipo}`;
+    toast.textContent = mensaje;
+
+    document.getElementById('toastContainer').appendChild(toast);
+
+    setTimeout(() => toast.remove(), 4000);
 }
 
-// Cerrar modal
-cancelarEliminar.onclick = () => modal.style.display = "none";
-window.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; }
 

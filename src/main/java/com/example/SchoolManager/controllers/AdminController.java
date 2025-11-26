@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -189,5 +190,14 @@ public class AdminController {
         redirectAttributes.addFlashAttribute("mensaje", "Alumno añadido correctamente.");
         return "redirect:/admin/asignar-asignatura-alumno";
     }
+    
+    @PostMapping("/admin/eliminar-usuario/{id}")
+    public String eliminarUsuario(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        usuarioRepository.deleteById(id);
+        redirectAttributes.addFlashAttribute("mensaje", "Usuario eliminado correctamente.");
+        return "redirect:/admin/dashboard";
+    }
+
+
 
 }

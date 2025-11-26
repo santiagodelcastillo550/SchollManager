@@ -99,11 +99,11 @@
 	                    ✏ Editar
 	                </a>
 	
-	                <a th:href="@{'/admin/eliminar-usuario/' + ${u.id}}"
-	                   onclick="abrirModalEliminar([[${u.id}]])"
-	                   class="btn-small delete-btn">
-	                    🗑 Eliminar
-	                </a>
+	                <button type="button"
+				            class="btn-small delete-btn"
+				            th:data-id="${u.id}">
+				        🗑 Eliminar
+				    </button>
 	            </td>
             </tr>
             </tbody>
@@ -140,7 +140,7 @@
     <p>SchoolManager © 2025</p>
 </footer>
 
-<script th:src="@{/js/admin_dashboard.js}"></script>
+
 
 
 <!-- MODAL ELIMINAR -->
@@ -151,11 +151,18 @@
 
         <div class="modal-actions">
             <button id="cancelarEliminar" class="btn-cancel">Cancelar</button>
-            <a id="confirmarEliminar" class="btn-delete">Eliminar</a>
+            <form id="formEliminar" method="post">
+                <input type="hidden" name="_csrf" value="[[${_csrf.token}]]"/>
+                <button type="submit" class="btn-delete">Eliminar</button>
+            </form>
         </div>
     </div>
 </div>
 
+<!-- Toast container -->
+<div id="toastContainer"></div>
+
+<script th:src="@{/js/admin_dashboard.js}"></script>
 
 </body>
 </html>
