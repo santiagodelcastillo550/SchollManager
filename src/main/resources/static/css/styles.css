@@ -531,4 +531,28 @@ footer {
     color: black;
 }
 
+.input-full {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0 12px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+
+.form-control {
+    width: 250px;
+    padding: 10px 14px;
+    font-size: 14px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 6px rgba(74, 144, 226, 0.4);
+}
+
 

@@ -94,11 +94,15 @@
                 
                 <!-- 🔥 BOTONES DE ACCIÓN -->
 	            <td>
-	                <a th:href="@{'/admin/editar-usuario/' + ${u.id}}"
-	                   class="btn-small edit-btn">
-	                    ✏ Editar
-	                </a>
-	
+	                <button type="button"
+					        class="btn-small edit-btn"
+					        th:data-id="${u.id}"
+					        th:data-email="${u.email}"
+					        th:data-nombre="${u.nombre}"
+					        th:data-rol="${u.rol}">
+					    ✏ Editar
+					</button>
+
 	                <button type="button"
 				            class="btn-small delete-btn"
 				            th:data-id="${u.id}">
@@ -158,6 +162,38 @@
         </div>
     </div>
 </div>
+
+<!-- MODAL EDITAR -->
+<div id="modalEditar" class="modal" aria-hidden="true">
+  <div class="modal-content">
+    <h3>Editar usuario</h3>
+
+    <form id="formEditar" method="post">
+      <input type="hidden" name="_csrf" value="[[${_csrf.token}]]"/>
+      <!-- Si tu endpoint usa path variable, pondremos action dinámico desde JS -->
+      <input type="hidden" id="editId" name="id">
+
+      <label for="editNombre">Nombre</label>
+      <input type="text" id="editNombre" name="nombre" class="input-full" required>
+
+      <label for="editEmail">Email</label>
+      <input type="email" id="editEmail" name="email" class="input-full" required>
+
+      <label for="editRol">Rol</label>
+      <select id="editRol" name="rol" class="input-full" required>
+        <option value="ADMIN">ADMIN</option>
+        <option value="PROFESOR">PROFESOR</option>
+        <option value="ALUMNO">ALUMNO</option>
+      </select>
+
+      <div class="modal-actions">
+        <button type="button" id="cancelarEditar" class="btn-cancel">Cancelar</button>
+        <button type="submit" class="btn-delete" style="background:#007bff;">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 
 <!-- Toast container -->
 <div id="toastContainer"></div>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.SchoolManager.entities.Asignatura;
@@ -198,6 +199,25 @@ public class AdminController {
         return "redirect:/admin/dashboard";
     }
 
+    @PostMapping("/admin/editar-usuario/{id}")
+    public String editarUsuario(@PathVariable Long id,
+                                @RequestParam String nombre,
+                                @RequestParam String email,
+                                @RequestParam String rol,
+                                RedirectAttributes redirectAttributes) {
 
+        Usuario u = usuarioRepository.findById(id).orElse(null);
+        if (u != null) {
+            u.setNombre(nombre);
+            u.setEmail(email);
+            u.setRol(Rol.valueOf(rol)); // adaptar según tu enum
+            usuarioRepository.save(u);
+            redirectAttributes.addFlashAttribute("mensaje", "Usuario actualizado correctamente.");
+        } else {
+            redirectAttributes.addFlashAttribute("mensajeError", "Usuario no encontrado.");
+        }
+
+        return "redirect:/admin/dashboard";
+    }
 
 }
